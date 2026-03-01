@@ -16,9 +16,7 @@ export const init = () =>
 
       return (p, { width, height }, t) => {
         const s = Math.sin(t)
-        const stage = (s + 1) / 2;
-        const bgCol = stage * 255;
-        const color = s >= 0 ? p.color(255, 255, 255 - bgCol) : 0
+        const color = s >= 0 ? 255 : 0
 
         const resized = width !== lastWidth || height !== lastHeight
         if (resized) {
@@ -35,7 +33,7 @@ export const init = () =>
 
         p.loadPixels()
 
-        for (let i = 0; i < (Math.abs(s) * 100) * 50; i += 1) {
+        for (let i = 0; i < (Math.abs(s) * 1000) * 5; i += 1) {
           const variant = Math.floor(p.random(0, 3))
           if (variant === 0) {
             cx = (cx + L.x) / 2
@@ -62,8 +60,11 @@ export const init = () =>
           }
         }
         p.updatePixels()
-
-
+        p.textSize(50)
+        p.stroke(90)
+        p.fill(90)
+        p.textAlign(p.CENTER, p.CENTER)
+        p.text(Math.round(s * 10) / 10, 0, 0, 100, 100)
 
         p.stroke(0, 255, 0)
         p.line(0, midline, totalWidth, midline)
